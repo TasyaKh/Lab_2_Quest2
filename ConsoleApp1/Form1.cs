@@ -6,54 +6,58 @@ namespace ConsoleApp1
     public partial class Form1 : Form
     {
         Calculaitons calc;
+        string[] forTextBoxes;
         public Form1()
         {
             InitializeComponent();
             calc = new Calculaitons();
+
+            forTextBoxes = new string[]{ "Введите вклад",
+                "Введите превышение ежемесячного увеличения вклада",
+                "Введите превышение вклада"};
         }
 
-        private void colorFontTextBox(int textBoxNum,bool red)
-        {
-            var colorFont = System.Drawing.Color.Black;
-
-            if (red) colorFont = System.Drawing.Color.Red;
-
-            switch (textBoxNum)
-            {
-                case 0:
-                    textBox1.ForeColor = colorFont;
-                    break;
-                case 1:
-                    textBox2.ForeColor = colorFont;
-                    break;
-                case 2:
-                    textBox3.ForeColor = colorFont;
-                    break;
-            }
-        }
         private void button1_Click(object sender, EventArgs e)
         {
-            byte textBoxNum = 0; //Нужен, чтобы узнать в каком боксе возникло исключение
+            label2.Visible = false;
+            label3.Visible = false;
+
+            int months;
+
+            TextBox textBoxNum  = textBox1; //Нужен, чтобы узнать в каком боксе возникло исключение
+
             try
             {
-                if (calc.checkInput(textBox1.Text))
+
+                if (calc.checkInput(textBox1.Text)) //Если корректно вверен вклад
                 {
-                    textBoxNum = 1;
-                    if (calc.checkInput(textBox2.Text))
+                    textBoxNum = textBox2;
+
+                    if (calc.checkInput(textBox2.Text)) //Если корректно введено превышение увеличения по вкладу
                     {
+                        months = calc.monthsForA(Convert.ToInt32(textBox1.Text), 
+                            Convert.ToInt32(textBox2.Text));
+
+                        label2.Text = $"Ответ: за {months} величина ежемесячного увеличения вклада превысит " 
+                            + textBox2.Text +" руб.";
                         label2.Visible = true;
-                        label2.Text = "Ответ: " + ;
                     }
-                    textBoxNum = 2;
-                    if (calc.checkInput(textBox3.Text))
+
+                    textBoxNum = textBox3;
+
+                    if (calc.checkInput(textBox3.Text)) //Если корректно введено превышение по вкладу
                     {
+                        months = calc.monthsForB(Convert.ToInt32(textBox1.Text),
+                            Convert.ToInt32(textBox3.Text));
+
+                        label3.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
+                            + textBox3.Text + " руб.";
                         label3.Visible = true;
-                        label3.Text = "Ответ: " +;
                     }
                 }
             }catch(System.FormatException)
             {
-                colorFontTextBox(textBoxNum, true);
+                textBoxNum.ForeColor = System.Drawing.Color.Red; //Меняем цвет шрифта текст бокса, где возникло исключение неправильного ввода
 
                 label4.Visible = true;
                 label4.Text = "Введено некорректное значение";
@@ -62,13 +66,38 @@ namespace ConsoleApp1
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
-            textBox1.Text = "";
+            textBox1.ForeColor = System.Drawing.Color.Black; //Делаем шрифт всех боксов по умолчанию черным
+            
+            if (textBox1.Text == forTextBoxes[0]) textBox1.Text = ""; //Меняем значение textBox, если поользователь ничего не вводил
         }
 
         private void textBox1_Leave(object sender, EventArgs e)
         {
-            if (textBox1.Text.Equals("")) textBox1.Text = "Введите вклад";
+            if (textBox1.Text.Equals("")) textBox1.Text = forTextBoxes[0]; //Если поле ввода пусто, то просим пользователя ввести значение
+        }
 
+        private void textBox2_Enter(object sender, EventArgs e)
+        {
+            textBox2.ForeColor = System.Drawing.Color.Black;
+
+            if (textBox2.Text == forTextBoxes[1]) textBox2.Text = "";
+        }
+
+        private void textBox2_Leave(object sender, EventArgs e)
+        {
+            if (textBox2.Text.Equals("")) textBox2.Text = forTextBoxes[1];
+        }
+
+        private void textBox3_Enter(object sender, EventArgs e)
+        {
+            textBox3.ForeColor = System.Drawing.Color.Black;
+
+            if (textBox3.Text == forTextBoxes[2]) textBox3.Text = "";
+        }
+
+        private void textBox3_Leave(object sender, EventArgs e)
+        {
+            if (textBox3.Text.Equals("")) textBox3.Text = forTextBoxes[2];
         }
     }
 }
