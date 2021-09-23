@@ -83,7 +83,6 @@ namespace ConsoleApp1
             this.textBox1.TabIndex = 4;
             this.textBox1.Text = "Введите значение";
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
-            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
             // 
             // textBox2
             // 
@@ -93,9 +92,7 @@ namespace ConsoleApp1
             this.textBox2.Size = new System.Drawing.Size(186, 24);
             this.textBox2.TabIndex = 5;
             this.textBox2.Text = "Введите значение";
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             this.textBox2.Enter += new System.EventHandler(this.textBox2_Enter);
-            this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave);
             // 
             // textBox3
             // 
@@ -106,7 +103,6 @@ namespace ConsoleApp1
             this.textBox3.TabIndex = 6;
             this.textBox3.Text = "Введите значение";
             this.textBox3.Enter += new System.EventHandler(this.textBox3_Enter);
-            this.textBox3.Leave += new System.EventHandler(this.textBox3_Leave);
             // 
             // label4
             // 

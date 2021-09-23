@@ -6,101 +6,102 @@ namespace ConsoleApp1
     public partial class Form1 : Form
     {
         Calculaitons calc;
-        string forTextBoxes;
         public Form1()
         {
             InitializeComponent();
+
+            textBox1.Text = Properties.Settings.Default.Contribution.ToString();
+            textBox2.Text = Properties.Settings.Default.B.ToString();
+            textBox3.Text = Properties.Settings.Default.C.ToString();
             calc = new Calculaitons();
 
-            forTextBoxes = "Введите значение";
         }
 
+        private void incorrectInput(TextBox textBoxNum)
+        {
+            textBoxNum.ForeColor = System.Drawing.Color.Red; //Меняем цвет шрифта текст бокса, где возникло исключение неправильного ввода
+
+            label4.Visible = true;
+            label4.Text = "Введено некорректное значение";
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             label2.Visible = false;
             label3.Visible = false;
 
             int months;
-
-            TextBox textBoxNum  = textBox1; //Нужен, чтобы узнать в каком боксе возникло исключение
+            int contrib = 0;
+            int B;
+            int C;
 
             try
             {
-
-                if (calc.checkInput(textBox1.Text)) //Если корректно вверен вклад
+                if ((contrib = calc.convertInput(textBox1.Text)) > 0) //Если корректно вверен вклад
                 {
-                    textBoxNum = textBox2;
-
-                    if (calc.checkInput(textBox2.Text)) //Если корректно введено превышение увеличения по вкладу
-                    {
-                        months = calc.monthsForA(Convert.ToInt32(textBox1.Text), 
-                            Convert.ToInt32(textBox2.Text));
-
-                        label2.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит " 
-                            + textBox2.Text +" руб.";
-                        label2.Visible = true;
-                    }
-
-                    textBoxNum = textBox3;
-
-                    if (calc.checkInput(textBox3.Text)) //Если корректно введено превышение по вкладу
-                    {
-                        months = calc.monthsForB(Convert.ToInt32(textBox1.Text),
-                            Convert.ToInt32(textBox3.Text));
-
-                        label3.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
-                            + textBox3.Text + " руб.";
-                        label3.Visible = true;
-                    }
+                    Properties.Settings.Default.Contribution = contrib;
                 }
-            }catch(System.FormatException)
-            {
-                textBoxNum.ForeColor = System.Drawing.Color.Red; //Меняем цвет шрифта текст бокса, где возникло исключение неправильного ввода
-
-                label4.Visible = true;
-                label4.Text = "Введено некорректное значение";
             }
+            catch (System.FormatException)
+            {
+                Properties.Settings.Default.Contribution = 0;
+                incorrectInput(textBox1);
+            }
+
+
+            try
+            {
+                if (contrib > 0 && (B = calc.convertInput(textBox2.Text)) >= 0) //Если корректно введено превышение увеличения по вкладу
+                {
+                    Properties.Settings.Default.B = B;
+
+                    months = calc.monthsForA(contrib, B);
+                    label2.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
+                        + textBox2.Text + " руб.";
+                    label2.Visible = true;
+                }
+            }
+            catch (System.FormatException)
+            {
+                Properties.Settings.Default.B = 0;
+                incorrectInput(textBox2);
+            }
+
+
+            try
+            {
+                if (contrib > 0 && (C = calc.convertInput(textBox3.Text)) >= 0) //Если корректно введено превышение по вкладу
+                {
+                    Properties.Settings.Default.C = C;
+
+                    months = calc.monthsForB(contrib, C);
+                    label3.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
+                        + textBox3.Text + " руб.";
+                    label3.Visible = true;
+                }
+            }
+            catch (System.FormatException)
+            {
+                Properties.Settings.Default.C = 0;
+                incorrectInput(textBox3);
+            }
+
+            Properties.Settings.Default.Save();
         }
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
             textBox1.ForeColor = System.Drawing.Color.Black; //Делаем шрифт всех боксов по умолчанию черным
-            
-            if (textBox1.Text == forTextBoxes) textBox1.Text = ""; //Меняем значение textBox, если поользователь ничего не вводил
-        }
-
-        private void textBox1_Leave(object sender, EventArgs e)
-        {
-            if (textBox1.Text.Equals("")) textBox1.Text = forTextBoxes; //Если поле ввода пусто, то просим пользователя ввести значение
         }
 
         private void textBox2_Enter(object sender, EventArgs e)
         {
             textBox2.ForeColor = System.Drawing.Color.Black;
 
-            if (textBox2.Text == forTextBoxes) textBox2.Text = "";
-        }
-
-        private void textBox2_Leave(object sender, EventArgs e)
-        {
-            if (textBox2.Text.Equals("")) textBox2.Text = forTextBoxes;
-        }
+         }
 
         private void textBox3_Enter(object sender, EventArgs e)
         {
             textBox3.ForeColor = System.Drawing.Color.Black;
-
-            if (textBox3.Text == forTextBoxes) textBox3.Text = "";
-        }
-
-        private void textBox3_Leave(object sender, EventArgs e)
-        {
-            if (textBox3.Text.Equals("")) textBox3.Text = forTextBoxes;
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
