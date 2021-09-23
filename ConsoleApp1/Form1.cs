@@ -6,15 +6,13 @@ namespace ConsoleApp1
     public partial class Form1 : Form
     {
         Calculaitons calc;
-        string[] forTextBoxes;
+        string forTextBoxes;
         public Form1()
         {
             InitializeComponent();
             calc = new Calculaitons();
 
-            forTextBoxes = new string[]{ "Введите вклад",
-                "Введите превышение ежемесячного увеличения вклада",
-                "Введите превышение вклада"};
+            forTextBoxes = "Введите значение";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,7 +36,7 @@ namespace ConsoleApp1
                         months = calc.monthsForA(Convert.ToInt32(textBox1.Text), 
                             Convert.ToInt32(textBox2.Text));
 
-                        label2.Text = $"Ответ: за {months} величина ежемесячного увеличения вклада превысит " 
+                        label2.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит " 
                             + textBox2.Text +" руб.";
                         label2.Visible = true;
                     }
@@ -68,36 +66,41 @@ namespace ConsoleApp1
         {
             textBox1.ForeColor = System.Drawing.Color.Black; //Делаем шрифт всех боксов по умолчанию черным
             
-            if (textBox1.Text == forTextBoxes[0]) textBox1.Text = ""; //Меняем значение textBox, если поользователь ничего не вводил
+            if (textBox1.Text == forTextBoxes) textBox1.Text = ""; //Меняем значение textBox, если поользователь ничего не вводил
         }
 
         private void textBox1_Leave(object sender, EventArgs e)
         {
-            if (textBox1.Text.Equals("")) textBox1.Text = forTextBoxes[0]; //Если поле ввода пусто, то просим пользователя ввести значение
+            if (textBox1.Text.Equals("")) textBox1.Text = forTextBoxes; //Если поле ввода пусто, то просим пользователя ввести значение
         }
 
         private void textBox2_Enter(object sender, EventArgs e)
         {
             textBox2.ForeColor = System.Drawing.Color.Black;
 
-            if (textBox2.Text == forTextBoxes[1]) textBox2.Text = "";
+            if (textBox2.Text == forTextBoxes) textBox2.Text = "";
         }
 
         private void textBox2_Leave(object sender, EventArgs e)
         {
-            if (textBox2.Text.Equals("")) textBox2.Text = forTextBoxes[1];
+            if (textBox2.Text.Equals("")) textBox2.Text = forTextBoxes;
         }
 
         private void textBox3_Enter(object sender, EventArgs e)
         {
             textBox3.ForeColor = System.Drawing.Color.Black;
 
-            if (textBox3.Text == forTextBoxes[2]) textBox3.Text = "";
+            if (textBox3.Text == forTextBoxes) textBox3.Text = "";
         }
 
         private void textBox3_Leave(object sender, EventArgs e)
         {
-            if (textBox3.Text.Equals("")) textBox3.Text = forTextBoxes[2];
+            if (textBox3.Text.Equals("")) textBox3.Text = forTextBoxes;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
