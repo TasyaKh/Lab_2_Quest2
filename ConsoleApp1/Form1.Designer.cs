@@ -36,6 +36,7 @@ namespace ConsoleApp1
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
@@ -60,26 +61,38 @@ namespace ConsoleApp1
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(332, 201);
+            this.label2.Location = new System.Drawing.Point(383, 198);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(16, 17);
+            this.label2.Size = new System.Drawing.Size(56, 17);
             this.label2.TabIndex = 2;
-            this.label2.Text = "0";
+            this.label2.Text = "Ответ: ";
+            this.label2.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(332, 258);
+            this.label3.Location = new System.Drawing.Point(383, 258);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 17);
+            this.label3.Size = new System.Drawing.Size(56, 17);
             this.label3.TabIndex = 3;
-            this.label3.Text = "0";
+            this.label3.Text = "Ответ: ";
+            this.label3.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(257, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(16, 17);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "0";
+            this.label4.Visible = false;
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(178, 136);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 22);
+            this.textBox1.Size = new System.Drawing.Size(186, 22);
             this.textBox1.TabIndex = 4;
             this.textBox1.Text = "Введите вклад";
             this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
@@ -87,9 +100,9 @@ namespace ConsoleApp1
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(178, 196);
+            this.textBox2.Location = new System.Drawing.Point(178, 193);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(120, 22);
+            this.textBox2.Size = new System.Drawing.Size(186, 22);
             this.textBox2.TabIndex = 5;
             this.textBox2.Text = "Введите превышение ежемесячного увеличения вклада";
             // 
@@ -97,13 +110,14 @@ namespace ConsoleApp1
             // 
             this.textBox3.Location = new System.Drawing.Point(178, 253);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(120, 22);
+            this.textBox3.Size = new System.Drawing.Size(186, 22);
             this.textBox3.TabIndex = 6;
             this.textBox3.Text = "Введите превышение вклада";
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(649, 444);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
@@ -127,5 +141,6 @@ namespace ConsoleApp1
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label4;
     }
 }

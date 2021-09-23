@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ConsoleApp1
 {
-    class Main
+    class Start
     {
         [STAThread]
         static void Main()

@@ -8,7 +8,9 @@ namespace ConsoleApp1
         public bool checkInput(string txt)
         {
             int num = Convert.ToInt32(txt);
-            return true;
+
+            if(num>0)return true;
+            return false;
         }
     }
 }
