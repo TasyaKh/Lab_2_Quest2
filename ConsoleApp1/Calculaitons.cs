@@ -4,40 +4,61 @@ namespace ConsoleApp1
 {
     public class Calculaitons
     {
-        double persent; //проценты
+        double persent;            //проценты
 
         public Calculaitons()
         {
-            persent = 0.02; //Проценты по вкладу 2%
-
+            persent = 0.02;       //Проценты по вкладу - 2%
         }
-        public int convertInput(string txt) //Проверить ввод пользователя
+
+        public string inputIsValid(string boxMessage) //Проверяет введенное значение на корректность
         {
-            int num = Convert.ToInt32(txt);
-            if (num < 0) throw new System.FormatException();
-            return num;
-        }
+            int num;
+            string message = ""; //Сообщение об ошибке
 
-        public int monthsForA(double contribution,int B)//Находит набежавшее ежемесячное увеличения вклада
+            try
+            {
+                num = Convert.ToInt32(boxMessage);
+
+                if(num <= 0)//Введенное число не может быть <=0
+                {                                                       
+                   message = "Значение не может быть равно 0 или быть отрицательным"; //Выводим сообщение об ошибке
+                }
+            }
+            catch (System.FormatException)
+            {
+                message = "Введены символы: " + boxMessage; //Пользователь ввел символы
+            }
+
+            return message;
+        }
+        public int monthsForB(double contribution,int B)//Находит набежавшее ежемесячное увеличения вклада
         {
             int months = 0;
             double incContrib = contribution;
-            for (int i = 0; incContrib - contribution < B; i++) //Процентры + вклад - первоначальный вклад = Получаем текущий набежавший процент по вкладу
+            if (contribution > 0) //В случае, если вклад = 0, отрицательный или не символ(во всех этих случаях по умолчанию 0)
             {
-                incContrib = incContrib + incContrib * persent; //Процентры + вклад
-                months = i + 1;
+                for (int i = 0; incContrib - contribution < B; i++) //Процентры + вклад - первоначальный вклад = Получаем текущий набежавший процент по вкладу
+                {
+                    incContrib = incContrib + incContrib * persent; //Процентры + вклад
+                    months = i + 1;
+                }
             }
             return months;
         }
 
-        public int monthsForB(double contribution, int C)//Текущая сумма вклада с набежавшими процентами
+        public int monthsForC(double contribution, int C)//Текущая сумма вклада с набежавшими процентами
         {
             int months = 0;
             double incContrib = contribution;
-            for (int i = 0; incContrib < C; i++)
+
+            if (contribution > 0) //В случае, если вклад = 0, отрицательный или не символ(во всех этих случаях по умолчанию 0)
             {
-                incContrib = incContrib + incContrib * persent; //Проценты + вклад
-                months = i + 1;
+                for (int i = 0; incContrib < C; i++)
+                {
+                    incContrib = incContrib + incContrib * persent; //Проценты + вклад
+                    months = i + 1;
+                }
             }
             return months;
         }

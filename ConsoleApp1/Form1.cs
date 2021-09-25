@@ -17,75 +17,67 @@ namespace ConsoleApp1
 
         }
 
-        private void incorrectInput(TextBox textBoxNum)
-        {
-            textBoxNum.ForeColor = System.Drawing.Color.Red; //Меняем цвет шрифта текст бокса, где возникло исключение неправильного ввода
-
-            label4.Visible = true;
-            label4.Text = "Введено некорректное значение";
-        }
         private void button1_Click(object sender, EventArgs e)
         {
             label2.Visible = false;
             label3.Visible = false;
 
-            int months;
-            int contrib = 0;
-            int B;
-            int C;
+            int months;                                      //Количество месяцев
 
-            try
-            {
-                if ((contrib = calc.convertInput(textBox1.Text)) > 0) //Если корректно вверен вклад
-                {
-                    Properties.Settings.Default.Contribution = contrib;
-                }
+            int contrib = 0;  //Хранит вклад
+            int B;        //Хранит вклад задания В
+            int C;        //Хранит вклад задания С
+            string message;
+
+            if ((message = calc.inputIsValid(textBox1.Text)).Equals("")) //Проверяем значение на корректность
+            {                         //если там есть сообщение, значит есть ошибка и конвертировать не будем
+                contrib = Convert.ToInt32(textBox1.Text);                
+                Properties.Settings.Default.Contribution = contrib;//Сохраняем значение для следующего запуска   
             }
-            catch (System.FormatException)
+            else                                                   //В случае ошибки выводим сообщение
             {
-                Properties.Settings.Default.Contribution = 0;
-                incorrectInput(textBox1);
-            }
-
-
-            try
-            {
-                if (contrib > 0 && (B = calc.convertInput(textBox2.Text)) >= 0) //Если корректно введено превышение увеличения по вкладу
-                {
-                    Properties.Settings.Default.B = B;
-
-                    months = calc.monthsForA(contrib, B);
-                    label2.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
-                        + textBox2.Text + " руб.";
-                    label2.Visible = true;
-                }
-            }
-            catch (System.FormatException)
-            {
-                Properties.Settings.Default.B = 0;
-                incorrectInput(textBox2);
+                textBox1.ForeColor = System.Drawing.Color.Red;     //Меняем цвет текста бокса на красный
+                MessageBox.Show(message);
             }
 
 
-            try
+            if ((message = calc.inputIsValid(textBox2.Text)).Equals(""))
             {
-                if (contrib > 0 && (C = calc.convertInput(textBox3.Text)) >= 0) //Если корректно введено превышение по вкладу
-                {
-                    Properties.Settings.Default.C = C;
+                B = Convert.ToInt32(textBox2.Text);
+                Properties.Settings.Default.B = B;
 
-                    months = calc.monthsForB(contrib, C);
-                    label3.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
-                        + textBox3.Text + " руб.";
-                    label3.Visible = true;
-                }
+                months = calc.monthsForB(contrib, B); //Находим количество месяцев
+
+                if (contrib > 0)label2.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
+                    + textBox2.Text + " руб.";
+                label2.Visible = true;
             }
-            catch (System.FormatException)
+            else
             {
-                Properties.Settings.Default.C = 0;
-                incorrectInput(textBox3);
+                textBox2.ForeColor = System.Drawing.Color.Red;
+                MessageBox.Show(message);
+            }
+
+
+            if ((message = calc.inputIsValid(textBox3.Text)).Equals(""))
+            {
+                C = Convert.ToInt32(textBox3.Text);
+                Properties.Settings.Default.C = C;
+
+                months = calc.monthsForC(contrib, C);
+
+                if(contrib > 0)label3.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного вклада превысит "
+                    + textBox3.Text + " руб.";
+                label3.Visible = true;
+            }
+            else
+            {
+                textBox3.ForeColor = System.Drawing.Color.Red;
+                MessageBox.Show(message);
             }
 
             Properties.Settings.Default.Save();
+
         }
 
         private void textBox1_Enter(object sender, EventArgs e)

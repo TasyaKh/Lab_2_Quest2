@@ -13,7 +13,7 @@ namespace ConsoleApp1
         {
             Form1 form = new Form1();
             Application.EnableVisualStyles();
-           // Application.SetCompatibleTextRenderingDefault(false);
+            // Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(form);
             
         }
