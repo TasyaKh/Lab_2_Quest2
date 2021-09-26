@@ -48,9 +48,12 @@ namespace ConsoleApp1
 
                 months = calc.monthsForB(contrib, B); //Находим количество месяцев
 
-                if (contrib > 0)label2.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
+                if (contrib > 0)
+                {
+                    label2.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного увеличения вклада превысит "
                     + textBox2.Text + " руб.";
-                label2.Visible = true;
+                    label2.Visible = true;
+                }
             }
             else
             {
@@ -66,9 +69,12 @@ namespace ConsoleApp1
 
                 months = calc.monthsForC(contrib, C);
 
-                if(contrib > 0)label3.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного вклада превысит "
+                if (contrib > 0)
+                {
+                    label3.Text = $"Ответ: за {months} месяцев(а) величина ежемесячного вклада превысит "
                     + textBox3.Text + " руб.";
-                label3.Visible = true;
+                    label3.Visible = true;
+                }
             }
             else
             {

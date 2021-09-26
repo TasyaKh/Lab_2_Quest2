@@ -27,7 +27,7 @@ namespace ConsoleApp1
             }
             catch (System.FormatException)
             {
-                message = "Введены символы: " + boxMessage; //Пользователь ввел символы
+                message = "Введенные символы: " + boxMessage; //Пользователь ввел символы
             }
 
             return message;
@@ -36,7 +36,7 @@ namespace ConsoleApp1
         {
             int months = 0;
             double incContrib = contribution;
-            if (contribution > 0) //В случае, если вклад = 0, отрицательный или не символ(во всех этих случаях по умолчанию 0)
+            if (contribution > 0 && B > 0) //В случае, если вклад = 0, отрицательный или не символ(во всех этих случаях по умолчанию 0)
             {
                 for (int i = 0; incContrib - contribution < B; i++) //Процентры + вклад - первоначальный вклад = Получаем текущий набежавший процент по вкладу
                 {
@@ -52,7 +52,7 @@ namespace ConsoleApp1
             int months = 0;
             double incContrib = contribution;
 
-            if (contribution > 0) //В случае, если вклад = 0, отрицательный или не символ(во всех этих случаях по умолчанию 0)
+            if (contribution > 0 && C > 0) //В случае, если вклад = 0, отрицательный или не символ(во всех этих случаях по умолчанию 0)
             {
                 for (int i = 0; incContrib < C; i++)
                 {
